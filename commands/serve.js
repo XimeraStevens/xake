@@ -8,54 +8,56 @@ var winston = null; // loaded from middleware
 
 var Command = require('ronin').Command;
 
-var ServeCommand = module.exports = Command.extend({
+module.exports = Command.extend({
     use: ['winston', 'find-repository-root'],
-    
+
     desc: 'Serve the HTML files in the repository',
 
     options: {
         port: {
             type: 'integer',
             alias: 'p',
-	    default: 8080
+            default: 8080
         }
     },
-    
+
     run: function (port) {
-	var global = this.global;
-	winston = global.winston;
-	
-	var serve = serveStatic(global.repository);
+        var global = this.global;
+        winston = global.winston;
 
-	var server = http.createServer(function(req, res) {
-	    winston.info( req.method + " " + req.url );
+        var serve = serveStatic(global.repository);
 
-	    //if ((req.url == '/users/xarma') || (req.url == '/users/xudos') || (req.url.match(/^\/state\/undefined/)) ) {
-	    if (req.url.match(/^\/state\/undefined/)) {	    
-		res.writeHead(200);
-		res.end('{}');
-	    } else {
-		var done = finalhandler(req, res);
+        var server = http.createServer(function (req, res) {
+            winston.info(req.method + ' ' + req.url);
 
-		// Add missing .html extensions
-		if ( ! (req.url.match( /\.html$/ ))) {
-		    req.url = req.url + '.html'
-		}
-		
-		serve(req, res, done);
-	    }
-	});	
-	
-	winston.info( "Serving files in " + global.repository + " at http://localhost:" + port + "/" );
+            //if ((req.url == '/users/xarma') || (req.url == '/users/xudos') || (req.url.match(/^\/state\/undefined/)) ) {
+            if (req.url.match(/^\/state\/undefined/)) {
+                res.writeHead(200);
+                res.end('{}');
+            } else {
+                var done = finalhandler(req, res);
 
-	fs.readdir(process.cwd(), function(err, items) {
-	    var htmlFilenames = items.filter( function(filename) { return filename.match( /\.html$/ ); } );
-	    if (htmlFilenames.length > 0) {
-		var example = path.relative( global.repository, path.resolve( process.cwd(), htmlFilenames[0] ) );
-		winston.info( "For example, http://localhost:" + port + "/" + example.replace( /\.html$/, '' ) );
-	    }
-	});
- 
-	server.listen(port);
+                // Add missing .html extensions
+                if (!(req.url.match(/\.html$/))) {
+                    req.url = req.url + '.html';
+                }
+
+                serve(req, res, done);
+            }
+        });
+
+        winston.info('Serving files in ' + global.repository + ' at http://localhost:' + port + '/');
+
+        fs.readdir(process.cwd(), function (err, items) {
+            var htmlFilenames = items.filter(function (filename) {
+                return filename.match(/\.html$/);
+            });
+            if (htmlFilenames.length > 0) {
+                var example = path.relative(global.repository, path.resolve(process.cwd(), htmlFilenames[0]));
+                winston.info('For example, http://localhost:' + port + '/' + example.replace(/\.html$/, ''));
+            }
+        });
+
+        server.listen(port);
     }
 });

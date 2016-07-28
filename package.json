@@ -1,51 +1,56 @@
 {
   "name": "xake",
-    "version": "0.1.27",
-    "scripts": {
-	"start": "node xake.js"
-    },
-    "author": {
-	"name" : "Jim Fowler",
-	"email" : "kisonecat@gmail.com",
-	"url" : "http://kisonecat.com/"
-    },
-    "repository" : {
-	"type" : "git",
-	"url" : "https://github.com/kisonecat/xake.git"
-    },
-    "license": "GPL-3.0",
-    "dependencies": {
-	"finalhandler": "*",
-	"serve-static": "*",		
-	"async": "1.5.2",
-	"prompt": "*",
-	"mkdirp": "*",		
-	"toposort": "*",      
-	"trash": "*",
-	"temp": "*",
-	"rimraf": "*",
-	"path": "*",
-	"wrench": "*",
-	"winston": "*",
-	"fstream": "*",
-	"findit": "*",
-	"nodegit": "0.13.0",
-	"github": "*",            
-	"underscore": "*",
-	"js-yaml": "*",
-	"recursive-readdir": "*",
-	"cheerio": "*",
-	"fd-slicer": "*",
-	"crypto": "*",
-	"ronin": "*",
-	"progress": "*",
-	"timeago": "*",
-	"colors": "*",
-	"tar": "*",
-	"minimist": "*"
-    },
-    
-    "bin": {
-	"xake": "app.js"
-    }
+  "version": "0.1.27",
+  "scripts": {
+    "lint": "eslint app.js commands/** lib/** middleware/** --max-warnings 1",
+    "precommit": "npm run lint",
+    "prepush": "npm run lint"
+  },
+  "author": {
+    "name": "Jim Fowler",
+    "email": "kisonecat@gmail.com",
+    "url": "http://kisonecat.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/XimeraProject/xake.git"
+  },
+  "license": "GPL-3.0",
+  "dependencies": {
+    "finalhandler": "*",
+    "serve-static": "*",
+    "async": "1.5.2",
+    "prompt": "*",
+    "mkdirp": "*",
+    "toposort": "*",
+    "trash": "*",
+    "temp": "*",
+    "rimraf": "*",
+    "path": "*",
+    "wrench": "*",
+    "winston": "*",
+    "fstream": "*",
+    "findit": "*",
+    "nodegit": "0.13.0",
+    "github": "*",
+    "underscore": "*",
+    "js-yaml": "*",
+    "recursive-readdir": "*",
+    "cheerio": "*",
+    "fd-slicer": "*",
+    "crypto": "*",
+    "ronin": "*",
+    "progress": "*",
+    "timeago": "*",
+    "colors": "*",
+    "tar": "*",
+    "minimist": "*",
+    "husky": "^0.11.6"
+  },
+  "devDependencies": {
+    "eslint": "^3.1.1"
+  },
+  "bin": {
+    "xake": "app.js"
+  }
 }
