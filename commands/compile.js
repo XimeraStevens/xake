@@ -1,5 +1,4 @@
 var path = require('path');
-var winston = null; // loaded from middleware
 var compile = require('../lib/compile');
 var ximeraLatex = require('../lib/ximera-latex');
 
@@ -13,10 +12,10 @@ module.exports = Command.extend({
     options: {},
 
     run: function (filename) {
-        var global = this.global;
-        winston = global.winston;
-        var directory = path.dirname(filename);
-        var basename = path.basename(filename);
+        var global = this.global,
+            winston = global.winston,
+            directory = path.dirname(filename),
+            basename = path.basename(filename);
 
         ximeraLatex.isInstalled(function (isInstalled) {
             if (isInstalled) {

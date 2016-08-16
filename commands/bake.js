@@ -1,6 +1,5 @@
 var async = require('async');
 var path = require('path');
-var winston = null; // loaded from middleware
 var compile = require('../lib/compile');
 var files = require('../lib/files');
 var meter = require('../lib/meter');
@@ -45,9 +44,8 @@ module.exports = Command.extend({
     },
 
     run: function (jobs) {
-        var global = this.global;
-
-        winston = global.winston;
+        var global = this.global,
+            winston = global.winston;
 
         if (jobs === true) {
             jobs = 1;
