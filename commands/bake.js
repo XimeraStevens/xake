@@ -53,19 +53,19 @@ module.exports = Command.extend({
 
         ximeraLatex.isInstalled(function (isInstalled) {
             if (isInstalled) {
-                winston.debug('Using the most recent version of ximeraLatex');
+                winston.info('Using the most recent version of ximeraLatex');
             } else {
-                winston.debug('Not using the same version of ximeraLatex as on GitHub');
-            }
-        });
-
-        files.needingCompilation(global.repository, function (err, filenames) {
-            if (err) {
-                throw new Error(err);
+                winston.warn('Not using the same version of ximeraLatex as on GitHub');
             }
 
-            compileFiles(global.repository, filenames, jobs, function () {
-                winston.info('The xake is made.');
+            files.needingCompilation(global.repository, function (err, filenames) {
+                if (err) {
+                    throw new Error(err);
+                }
+
+                compileFiles(global.repository, filenames, jobs, function () {
+                    winston.info('The xake is made.');
+                });
             });
         });
     }
