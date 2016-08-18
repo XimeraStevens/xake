@@ -3,8 +3,7 @@
   "version": "0.1.27",
   "scripts": {
     "lint": "eslint app.js commands/** lib/** middleware/** --max-warnings 1",
-    "precommit": "npm run lint",
-    "prepush": "npm run lint"
+    "precommit": "npm run lint"
   },
   "author": {
     "name": "Jim Fowler",
