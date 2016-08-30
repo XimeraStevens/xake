@@ -105,14 +105,14 @@ module.exports = Command.extend({
             credentials.load(function (err, keyAndSecret) {
                 var port = '';
 
-                if ((keyAndSecret.port) && (keyAndSecret.port != 80)) {
+                if (keyAndSecret.port && keyAndSecret.port != 80) {
                     port = ':' + keyAndSecret.port;
                 }
 
                 var server = keyAndSecret.server;
 
                 if (!server) {
-                    server = 'ximera.osu.edu';
+                    server = 'ximera.stevens.edu';
                 }
 
                 winston.info('Published repository to http://' + server + port + publicationLocation);
